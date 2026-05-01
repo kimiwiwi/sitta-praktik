@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Login - My SITTA</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <!-- Logo dan Header -->
+        <div class="login-header">
+            <img src="assets/logo_ut.png" alt="Logo UT" class="logo">
+            <h2>UNIVERSITAS TERBUKA</h2>
+            <p>Selamat datang di My SITTA</p>
+        </div>
+
+        <!-- Form Login -->
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Masukkan email" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Masukkan password" required>
+            </div>
+            
+            <div class="forgot-link">
+                <a href="#" onclick="openModal('forgotModal')">Lupa password?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Masuk</button>
+        </form>
+
+        <div class="register-link">
+            <p>Belum punya akun? <a href="#" onclick="openModal('registerModal')">Daftar disini</a></p>
+        </div>
+    </div>
+
+    <!-- Modal Box Lupa Password -->
+    <div id="forgotModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('forgotModal')">&times;</span>
+            <h3>Reset Password</h3>
+            <p>Silakan hubungi administrator atau masukkan email pemulihan Anda.</p>
+            <input type="email" placeholder="Email pemulihan">
+            <button class="btn-login">Kirim</button>
+        </div>
+    </div>
+
+    <!-- Modal Box Daftar Akun -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h3>Daftar Akun</h3>
+            <div class="input-group">
+                <label>Nama</label>
+                <input type="text" placeholder="Masukkan nama">
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" placeholder="Masukkan email">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Masukkan password">
+            </div>
+            <button class="btn-login">Daftar</button>
+        </div>
+    </div>
+
+    <!-- Script Data dan Logika -->
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

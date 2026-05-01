@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tracking Pengiriman - My SITTA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>App SITTA v.1.0</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li><a href="dashboard.html"> Dashboard</a></li>
+                <li><a href="stok.html"> Informasi Bahan Ajar</a></li>
+                <li class="active"><a href="tracking.html"> Tracking Pengiriman</a></li>
+                <li><a href="#"> Laporan</a></li>
+                <li><a href="#"> Histori Transaksi</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content">
+            <header class="top-navbar">
+                <button type="button" id="sidebarCollapse" class="btn-menu">☰</button>
+                <div class="user-profile"><span id="userName">User</span></div>
+            </header>
+
+            <div class="main-content">
+                <h2>Tracking Pengiriman Bahan Ajar</h2>
+                <div class="search-box">
+                    <input type="text" id="inputDO" placeholder=" Masukkan Nomor DO">
+                    <!-- Perhatikan: Nama fungsi di onclick HARUS SAMA dengan di script -->
+                    <button onclick="lacakPengiriman()" class="btn-login" style="width: auto; padding: 10px 20px;">Cari</button>
+                </div>
+
+                <!-- Area Hasil Pencarian -->
+                <div id="hasilTracking" style="display: none; margin-top: 30px;">
+                    <div class="card-tracking">
+                        <div class="tracking-header">
+                            <h3 id="displayNama">Nama Mahasiswa</h3>
+                            <p>Status: <b id="displayStatus"></b> | Ekspedisi: <span id="displayEkspedisi"></span></p>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div class="progress-container" style="background: #eee; height: 10px; border-radius: 5px; margin: 15px 0;">
+                            <div id="progressBar" style="height: 100%; width: 0%; border-radius: 5px; transition: 0.5s;"></div>
+                        </div>
+
+                        <table class="table-detail">
+                            <tr><td>Ekspedisi</td><td id="detEkspedisi">-</td></tr>
+                            <tr><td>Tanggal Kirim</td><td id="detTanggal">-</td></tr>
+                            <tr><td>Jenis Paket</td><td id="detPaket">-</td></tr>
+                            <tr><td>Total Pembayaran</td><td id="detTotal">-</td></tr>
+                        </table>
+
+                        <hr>
+                        <div id="displayPerjalanan" class="timeline"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Utama -->
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        // Fungsi ini diletakkan di sini agar langsung aktif
+        function lacakPengiriman() {
+            const inputDO = document.getElementById('inputDO');
+            if (!inputDO) return;
+            
+            const noDO = inputDO.value.trim();
+            const hasilArea = document.getElementById('hasilTracking');
+            const displayPerjalanan = document.getElementById('displayPerjalanan');
+
+            // Cek apakah dataTracking ada (diambil dari data.js)
+            if (typeof dataTracking === 'undefined') {
+                console.error("Data tracking tidak ditemukan. Pastikan js/data.js sudah benar.");
+                return;
+            }
+
+            const data = dataTracking[noDO];
+
+            if (data) {
+                hasilArea.style.display = "block";
+                document.getElementById('displayNama').innerText = data.nama;
+                document.getElementById('displayStatus').innerText = data.status;
+                document.getElementById('displayEkspedisi').innerText = data.ekspedisi;
+                document.getElementById('detEkspedisi').innerText = data.ekspedisi;
+                document.getElementById('detTanggal').innerText = data.tanggalKirim;
+                document.getElementById('detPaket').innerText = data.paket;
+                document.getElementById('detTotal').innerText = data.total;
+
+                const pb = document.getElementById('progressBar');
+                if (data.status === "Dikirim" || data.status === "Selesai") {
+                    pb.style.width = "100%";
+                    pb.style.backgroundColor = "#28a745";
+                } else {
+                    pb.style.width = "50%";
+                    pb.style.backgroundColor = "#ffc107";
+                }
+
+                displayPerjalanan.innerHTML = "";
+                data.perjalanan.forEach(step => {
+                    displayPerjalanan.innerHTML += `
+                        <div class="timeline-item" style="border-left: 2px solid #1a4da1; padding-left: 15px; margin-bottom: 15px; position: relative;">
+                            <div style="font-size: 11px; color: #777;">${step.waktu}</div>
+                            <div style="font-size: 14px;">${step.keterangan}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                alert("Nomor Delivery Order tidak ditemukan!");
+                hasilArea.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

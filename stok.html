@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Stok Bahan Ajar - My SITTA</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body class="dashboard-page">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header"><h3>App SITTA v.1.0</h3></div>
+            <ul class="list-unstyled components">
+                <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li class="active"><a href="stok.html"><i class="fa-solid fa-book-open"></i> Informasi Bahan Ajar</a></li>
+                <li><a href="tracking.html"><i class="fa-solid fa-file-lines"></i> Tracking Pengiriman</a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> Laporan</a></li>
+                <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Histori Transaksi</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="content">
+            <header class="top-navbar">
+                <button type="button" id="sidebarCollapse" class="btn-menu">☰</button>
+                <div class="user-profile"><span id="userName">User</span></div>
+            </header>
+
+            <div class="main-content">
+                <h2>Informasi Stok Bahan Ajar</h2>
+                
+                <!-- Form Input Tambah Stok (Sesuai gambar image_e3de96.png) -->
+                <div class="search-box">
+                    <input type="text" id="inLokasi" placeholder="Kode Lokasi">
+                    <input type="text" id="inKode" placeholder="Kode Barang">
+                    <input type="text" id="inNama" placeholder="Nama Barang">
+                    <input type="number" id="inStok" placeholder="Jumlah Stok">
+
+                    <button onclick="tambahBuku()" class="btn-login" style="width: auto; background-color: #28a745;">+ Tambah Buku</button>
+                </div>
+
+                <table class="table-stok">
+                    <thead>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Kode Lokasi</th>
+                            <th>Kode Barang</th>
+                            <th>Nama Barang</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyTabelStok">
+                        <!-- Data akan muncul di sini via Javascript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

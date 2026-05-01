@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - My SITTA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="dashboard-page">
+    <div class="wrapper">
+        <!-- Sidebar sesuai gambar image_e3de96.png -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>App SITTA v.1.0</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li class="active"><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a href="stok.html"><i class="fa-solid fa-book-open"></i> Informasi Bahan Ajar</a></li>
+                <li><a href="tracking.html"><i class="fa-solid fa-file-lines"></i> Tracking Pengiriman</a></li>
+                <li>
+                    <a href="javascript:void(0)" class="dropdown-toggle" onclick="toggleSubmenu()">
+                        <i class="fa-solid fa-graduation-cap"></i> Laporan</a>
+                    <ul class="submenu" id="submenuLaporan" style="display: none;">
+                        <li><a href="#"> Monitoring Progress DO</a></li>
+                        <li><a href="#"> Rekap Bahan Ajar</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Histori Transaksi</a></li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <header class="top-navbar">
+                <button type="button" id="sidebarCollapse" class="btn-menu">☰</button>
+                <div class="user-profile">
+                    <span id="userName">User</span>
+                    <a href="index.html" class="btn-logout">Logout</a>
+                </div>
+            </header>
+
+            <div class="main-content">
+                <h2 id="greetingText">Selamat Datang</h2>
+                <p id="dateTimeDisplay"></p>
+
+                <!-- Box Statistik (Simulasi dari gambar) -->
+                <div class="card-container">
+                    <div class="card blue">
+                        <h3>150</h3>
+                        <p>Pesanan Baru</p>
+                    </div>
+                    <div class="card green">
+                        <h3>53%</h3>
+                        <p>Persentase Pengunjung</p>
+                    </div>
+                    <div class="card orange">
+                        <h3>44</h3>
+                        <p>Anggota Baru</p>
+                    </div>
+                    <div class="card red">
+                        <h3>65</h3>
+                        <p>Stok Buku</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+
+        // Fungsi untuk menampilkan Greeting berdasarkan waktu
+        function tampilkanGreeting() {
+            const user = JSON.parse(localStorage.getItem('userLoggedIn'));
+            const namaUser = user ? user.nama : "Pengguna";
+            const userNameElement = document.getElementById('userName');
+            const greetingElement = document.getElementById('greetingText');
+            const dateElement = document.getElementById('dateTimeDisplay');
+
+            if (userNameElement) userNameElement.innerText = namaUser;
+
+            const jam = new Date().getHours();
+            let salam = "Selamat Malam";
+
+            if (jam >= 5 && jam < 11) {
+                salam = "Selamat Pagi";
+            } else if (jam >= 11 && jam < 15) {
+                salam = "Selamat Siang";
+            } else if (jam >= 15 && jam < 18) {
+                salam = "Selamat Sore";
+            }
+
+            if (greetingElement) {
+                greetingElement.innerText = `${salam}, ${namaUser}`;
+            }
+
+            // Menampilkan Tanggal Real-time
+            if (dateElement) {
+                const opsi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                dateElement.innerText = new Date().toLocaleDateString('id-ID', opsi);
+            }
+        }
+        // Jalankan fungsi greeting saat halaman dimuat
+        window.onload = function () {
+            tampilkanGreeting();
+        };
+    </script>
+
+
+</body>
+
+</html>
